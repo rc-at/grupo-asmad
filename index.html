@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo Asmad | Ingeniería y Construcción</title>
+  
+  <script type="importmap">
+    {"imports": {"@material/web/": "https://esm.run/@material/web/"}}
+  </script>
+  <script type="module" src="./js/main.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">GRUPO ASMAD</div>
+    <div class="nav-links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <md-filled-button href="#contacto">Contáctanos</md-filled-button>
+    </div>
+  </nav>
+
+  <header class="hero-corporate">
+    <div class="hero-overlay">
+      <h1>Ingeniería, Construcción y Acondicionamiento</h1>
+      <p>Más de 10 años brindando soluciones integrales y seguras para el sector público y privado.</p>
+      <div style="margin-top: 2rem;">
+        <md-filled-button href="#servicios" style="--md-sys-color-primary: #ff5722;">Nuestros Servicios</md-filled-button>
+        <md-outlined-button style="margin-left: 1rem; --md-sys-color-outline: #fff; color: #fff;">Ver Proyectos</md-outlined-button>
+      </div>
+    </div>
+  </header>
+
+  <section id="servicios" class="section-container">
+    <h2 class="section-title">Especialidades</h2>
+    <div class="services-grid-corporate">
+      
+      <div class="card-corporate">
+        <md-icon class="icon-large">architecture</md-icon>
+        <h3>Construcción Civil</h3>
+        <p>Ejecución de obras, remodelaciones y estructuras con los más altos estándares de calidad.</p>
+      </div>
+
+      <div class="card-corporate">
+        <md-icon class="icon-large">electrical_services</md-icon>
+        <h3>Ingeniería Eléctrica</h3>
+        <p>Instalación de tableros, cableado estructurado, sistemas de puesta a tierra y mantenimiento en obras.</p>
+      </div>
+
+      <div class="card-corporate">
+        <md-icon class="icon-large">engineering</md-icon>
+        <h3>Acondicionamiento</h3>
+        <p>Mantenimiento integral de edificios, sistemas contra incendios y climatización corporativa.</p>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

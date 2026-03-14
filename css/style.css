@@ -1,0 +1,62 @@
+/* Añadir al style.css existente */
+body { padding: 0; max-width: 100%; }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo { font-weight: 700; font-size: 1.5rem; color: #a04100; }
+.nav-links a { margin-right: 1.5rem; text-decoration: none; color: #333; font-weight: 500; }
+
+.hero-corporate {
+  background-image: url('https://images.unsplash.com/photo-1541888086225-f6404f45625b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+  color: white;
+  text-align: left;
+}
+
+.hero-overlay h1 { font-size: 3.5rem; margin: 0 0 1rem 0; max-width: 800px; }
+.hero-overlay p { font-size: 1.2rem; max-width: 600px; opacity: 0.9; }
+
+.section-container { padding: 5rem 10%; text-align: center; }
+.section-title { font-size: 2.5rem; color: #333; margin-bottom: 3rem; }
+
+.services-grid-corporate {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card-corporate {
+  background: #fff;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+  border-top: 5px solid #a04100;
+}
+
+.card-corporate:hover { transform: translateY(-10px); }
+.icon-large { font-size: 48px; color: #a04100; margin-bottom: 1.5rem; }
