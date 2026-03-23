@@ -3,62 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grupo Asmad | Ingeniería y Construcción</title>
-  
-  <script type="importmap">
-    {"imports": {"@material/web/": "https://esm.run/@material/web/"}}
-  </script>
-  <script type="module" src="./js/main.js"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <title>Grupo Asmad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-
-  <nav class="navbar">
-    <div class="logo">GRUPO ASMAD</div>
-    <div class="nav-links">
-      <a href="#nosotros">Nosotros</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#proyectos">Proyectos</a>
-      <md-filled-button href="#contacto">Contáctanos</md-filled-button>
-    </div>
-  </nav>
-
-  <header class="hero-corporate">
-    <div class="hero-overlay">
-      <h1>Ingeniería, Construcción y Acondicionamiento</h1>
-      <p>Más de 10 años brindando soluciones integrales y seguras para el sector público y privado.</p>
-      <div style="margin-top: 2rem;">
-        <md-filled-button href="#servicios" style="--md-sys-color-primary: #ff5722;">Nuestros Servicios</md-filled-button>
-        <md-outlined-button style="margin-left: 1rem; --md-sys-color-outline: #fff; color: #fff;">Ver Proyectos</md-outlined-button>
-      </div>
+  
+  <header class="header">
+    <div class="container">
+      <div class="logo">GRUPO<span>ASMAD</span></div>
+      <nav class="nav">
+        <a href="#">Inicio</a>
+        <a href="#">Servicios</a>
+        <a href="#">Proyectos</a>
+        <a href="#">Contacto</a>
+      </nav>
+      <a href="#" class="btn">Cotizar</a>
     </div>
   </header>
 
-  <section id="servicios" class="section-container">
-    <h2 class="section-title">Especialidades</h2>
-    <div class="services-grid-corporate">
-      
-      <div class="card-corporate">
-        <md-icon class="icon-large">architecture</md-icon>
-        <h3>Construcción Civil</h3>
-        <p>Ejecución de obras, remodelaciones y estructuras con los más altos estándares de calidad.</p>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-text fade-up">
+        <h1 class="fade-up delay-1">SOLUCIONES TÉCNICAS CONFIABLES<br>PARA PROYECTOS DE CONSTRUCCIÓN EXIGENTES</h1>
+        <p class="fade-up delay-2">Trabajamos con constructoras, ingenieros y arquitectos que necesitan instalaciones seguras, cumplimiento técnico y responsabilidad en cada etapa del proyecto.</p>
+        <div class="hero-buttons fade-up delay-3">
+          <a href="#" class="btn">SOLICITAR COTIZACIÓN</a>
+          <a href="#" class="btn btn-outline">VER EXPERIENCIA</a>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="card">Cumplimiento técnico garantizado</div>
+        <div class="card">Experiencia en proyectos reales</div>
+        <div class="card">Trabajo responsable en obra</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>POR QUÉ TRABAJAR CON NOSOTROS</h2>
+        <p>Empresas constructoras, ingenieros y arquitectos confían en nuestro trabajo por la seguridad, responsabilidad y experiencia que ofrecemos en cada proyecto.</p>
       </div>
 
-      <div class="card-corporate">
-        <md-icon class="icon-large">electrical_services</md-icon>
-        <h3>Ingeniería Eléctrica</h3>
-        <p>Instalación de tableros, cableado estructurado, sistemas de puesta a tierra y mantenimiento en obras.</p>
+      <div class="benefits-grid">
+        <div class="benefit-card fade-up delay-1">
+          <h3>Cumplimiento técnico</h3>
+          <p>Trabajamos respetando normas técnicas y estándares requeridos en proyectos de construcción.</p>
+        </div>
+        <div class="benefit-card fade-up delay-2">
+          <h3>Experiencia en obra</h3>
+          <p>Participamos en proyectos reales con constructoras, edificaciones y trabajos de alta exigencia.</p>
+        </div>
+        <div class="benefit-card fade-up delay-3">
+          <h3>Responsabilidad profesional</h3>
+          <p>Cumplimos tiempos, procesos y especificaciones necesarias en cada etapa del trabajo.</p>
+        </div>
+        <div class="benefit-card fade-up delay-1">
+          <h3>Personal calificado</h3>
+          <p>Técnicos con experiencia en instalaciones eléctricas, sanitarias y sistemas para construcción.</p>
+        </div>
+        <div class="benefit-card fade-up delay-2">
+          <h3>Trabajo seguro</h3>
+          <p>Priorizamos seguridad, orden y calidad en cada instalación realizada.</p>
+        </div>
+        <div class="benefit-card fade-up delay-3">
+          <h3>Compromiso con el proyecto</h3>
+          <p>Nos involucramos en cada obra como parte del equipo para lograr un resultado correcto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>NUESTROS SERVICIOS</h2>
+        <p>Brindamos soluciones técnicas para proyectos de construcción, edificaciones, empresas y viviendas.</p>
       </div>
 
-      <div class="card-corporate">
-        <md-icon class="icon-large">engineering</md-icon>
-        <h3>Acondicionamiento...</h3>
-        <p>Mantenimiento integral de edificios, sistemas contra incendios y climatización corporativa.</p>
+      <div class="services-grid">
+        <div class="service-card fade-up delay-1">
+          <h3>Instalaciones eléctricas</h3>
+          <p>Instalaciones para viviendas, edificios y obras cumpliendo normas técnicas.</p>
+        </div>
+        <div class="service-card fade-up delay-2">
+          <h3>Instalaciones sanitarias</h3>
+          <p>Sistemas de agua y desagüe para proyectos residenciales y construcción.</p>
+        </div>
+        <div class="service-card fade-up delay-3">
+          <h3>Sistemas contra incendios</h3>
+          <p>Instalación de redes y sistemas de seguridad según requerimientos técnicos.</p>
+        </div>
+        <div class="service-card fade-up delay-1">
+          <h3>Pozos a tierra</h3>
+          <p>Instalación y mantenimiento de sistemas de puesta a tierra certificados.</p>
+        </div>
+        <div class="service-card fade-up delay-2">
+          <h3>Estructuras metálicas</h3>
+          <p>Fabricación e instalación para obras, techos y proyectos industriales.</p>
+        </div>
+        <div class="service-card fade-up delay-3">
+          <h3>Muebles de melamina</h3>
+          <p>Diseño e instalación para viviendas, departamentos y oficinas.</p>
+        </div>
       </div>
-
     </div>
   </section>
 
