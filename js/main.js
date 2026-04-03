@@ -28,6 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('carousel-next');
   const dotsContainer = document.getElementById('carousel-dots');
 
+  // Lógica del Menú Hamburguesa
+  const navMenu = document.querySelector('nav');
+  const hamburgerBtn = document.getElementById('mobile-menu-btn');
+
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('menu-open');
+
+      // Cambiar el icono dinámicamente de "menú" a "X"
+      const icon = hamburgerBtn.querySelector('.material-symbols-outlined');
+      icon.textContent = navMenu.classList.contains('menu-open') ? 'close' : 'menu';
+    });
+  }
+
   // =========================================
   // 2. STATE MANAGEMENT
   // =========================================
