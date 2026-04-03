@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none !important;
+}
+
 body,
 html {
   width: 100%;
@@ -233,12 +237,11 @@ nav {
 .service {
   display: flex;
   align-items: center;
-  gap: 0;
   padding: 8px 12px;
   border-radius: 40px;
   cursor: pointer;
   color: var(--text-muted);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) color 0.3s ease, gap 0.4s ease 0.1s;
   outline: none;
 }
 
@@ -246,7 +249,6 @@ nav {
 .service:hover,
 .service:focus-visible {
   background: #ffffff;
-  gap: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
@@ -255,6 +257,26 @@ nav {
   max-width: 200px;
   opacity: 1;
   color: var(--text-muted);
+}
+
+.service:hover {
+  transition-delay: 0s;
+}
+
+.service:hover span.text {
+  max-width: 200px;
+  margin-left: 10px;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.service.active {
+  color: var(--primary-color) !important;
+  transition: color 0.3s ease;
+}
+
+.service.active span.text {
+  color: var(--primary-color);
 }
 
 .service.active .material-symbols-outlined,
@@ -271,11 +293,25 @@ nav {
 .service span.text {
   max-width: 0;
   opacity: 0;
+  margin-left: 0;
   overflow: hidden;
   white-space: nowrap;
   font-size: 14px;
   font-weight: 500;
-  transition: max-width 0.4s ease, opacity 0.3s ease;
+  pointer-events: none;
+  transition:
+    max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+    margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+    opacity 0.3s ease 0.2s;
+}
+
+.service:focus {
+  outline: none;
+}
+
+.service:focus-visible {
+  box-shadow: 0 0 0 2px var(--primary-color);
+  border-radius: 30px;
 }
 
 /* --- BUTTONS --- */

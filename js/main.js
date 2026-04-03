@@ -373,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bgIcon.textContent = iconName;
         bgIcon.classList.add('show');
       }
+      service.blur(); // Quita el foco del elemento para que la tecla MAYUS no le afecte
     });
   });
 
