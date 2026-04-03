@@ -68,7 +68,7 @@ nav {
   align-items: center;
   padding: 26px 60px;
   position: relative;
-  z-index: 20;
+  z-index: 100;
   animation: fadeUpLoad 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   will-change: transform, opacity;
 }
@@ -214,25 +214,20 @@ nav {
   position: fixed;
   bottom: 40px;
   left: 60px;
-  /* Alineado a la izquierda */
   right: auto;
-  /* Anulamos el centrado */
   margin: 0;
-  /* Anulamos el centrado */
   width: max-content;
   padding: 12px 24px;
   display: flex;
   justify-content: flex-start;
   gap: 15px;
   border-radius: 50px;
-
-  /* Efecto Cristal */
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
-  z-index: 50;
+  z-index: 30;
 }
 
 .service {
@@ -314,7 +309,7 @@ nav {
   width: 100%;
   min-height: 100vh;
   background: var(--bg-gradient);
-  z-index: 15;
+  z-index: 50;
   transform: translateX(100vw);
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
@@ -546,7 +541,7 @@ nav {
 /* =========================================
    7. RESPONSIVE (MEDIA QUERIES)
    ========================================= */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   body {
     overflow-y: auto;
   }
@@ -658,7 +653,7 @@ nav {
     /* La centra perfectamente en el celular */
     padding: 8px 16px;
     gap: 8px;
-    z-index: 9999;
+    z-index: 30;
   }
 
   .service span.text {
