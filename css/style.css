@@ -623,7 +623,7 @@ nav {
 
   .left {
     width: 100%;
-    padding: 0 20px 120px 20px;
+    padding: 0 0 120px 0;
     margin-top: 20px;
     min-height: auto;
   }
