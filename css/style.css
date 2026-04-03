@@ -17,7 +17,6 @@
   box-sizing: border-box;
 }
 
-/* Eliminamos el recuadro azul predeterminado de los navegadores */
 *:focus {
   outline: none !important;
 }
