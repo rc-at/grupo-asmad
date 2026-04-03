@@ -1,11 +1,9 @@
 /**
  * Grupo Asmad - Core Application Logic
- * Refactored for maintainability, performance, and accessibility.
  */
 document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   // 1. DOM ELEMENTS CACHE
-  // Caching DOM selections avoids unnecessary reflows/repaints and improves performance.
   // =========================================
   const root = document.documentElement;
 
@@ -14,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroContent = document.getElementById('hero-content');
   const bgIcon = document.getElementById('bg-icon');
   const logo = document.getElementById('logo');
-  const ctaText = document.getElementById('cta-text');
   const services = document.querySelectorAll('.service');
+  const navWhatsappBtn = document.querySelector('.btn-nav-whatsapp'); // Cache del botón navbar
 
   // Details Screen
   const fullDetailsScreen = document.getElementById('full-details');
@@ -28,15 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('carousel-next');
   const dotsContainer = document.getElementById('carousel-dots');
 
-  // Lógica del Menú Hamburguesa
+  // Hamburguesa
   const navMenu = document.querySelector('nav');
   const hamburgerBtn = document.getElementById('mobile-menu-btn');
 
   if (hamburgerBtn) {
     hamburgerBtn.addEventListener('click', () => {
       navMenu.classList.toggle('menu-open');
-
-      // Cambiar el icono dinámicamente de "menú" a "X"
       const icon = hamburgerBtn.querySelector('.material-symbols-outlined');
       icon.textContent = navMenu.classList.contains('menu-open') ? 'close' : 'menu';
     });
@@ -52,84 +48,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // =========================================
   // 3. DATA STORE
-  // Contains text, properties, and image locations for each service.
   // =========================================
   const serviceData = {
     default: {
       color: '#FF6B00',
       light: '#f3f5f7',
-      title: 'INGENIERÍA QUE <br><span>TRANSFORMA</span><br> TUS ESPACIOS',
+      title: 'INGENIERÍA QUE <span>TRANSFORMA</span> TUS ESPACIOS',
       desc: 'Soluciones eléctricas, estructurales y de diseño con ejecución profesional. Seguridad, estética y precisión en cada proyecto.',
-      cta: 'Solicitar cotización',
-      hasDetails: false
+      cta: 'Solicitar Asesoría Gratuita',
+      hasDetails: false,
+      isDefault: true
     },
     bolt: {
       color: '#007BFF',
       light: '#E6F0FA',
-      title: 'INSTALACIONES <br><span>ELÉCTRICAS</span>',
+      title: 'INSTALACIONES <span>ELÉCTRICAS</span>',
       desc: 'Proyectos integrales de cableado, tableros y sistemas eléctricos residenciales e industriales.',
       cta: 'Cotizar Instalaciones',
       hasDetails: true,
       extDesc: 'Realizamos estudios de carga, diseño de planos eléctricos y ejecución de obras garantizando seguridad al 100%. Cumplimos estrictamente con el Código Nacional de Electricidad para proteger tus activos y personal.',
       benefits: ['Instalación de tableros', 'Cableado estructurado', 'Mantenimiento preventivo'],
-      images: [
-        './img/instalaciones-electricas/1.jpg',
-        './img/instalaciones-electricas/2.jpg',
-        './img/instalaciones-electricas/3.jpg'
-      ]
+      images: ['./img/instalaciones-electricas/1.jpg', './img/instalaciones-electricas/2.jpg', './img/instalaciones-electricas/3.jpg']
     },
     chair: {
       color: '#A0522D',
       light: '#F5EBE6',
-      title: 'MUEBLES DE <br><span>MELAMINA</span>',
+      title: 'MUEBLES DE <span>MELAMINA</span>',
       desc: 'Fabricación de muebles a medida para oficinas, cocinas y closets, combinando funcionalidad y acabados premium.',
       cta: 'Cotizar Melamina',
       hasDetails: true,
-      extDesc: 'Trabajamos con tableros de alta densidad y herrajes de marcas líderes. Diseñamos en 3D antes de fabricar para optimizar cada rincón de tu espacio según tus necesidades.',
+      extDesc: 'Trabajamos con tableros de alta densidad y herrajes de marcas líderes. Diseñamos en 3D antes de fabricar para optimizar cada rincón de tu espacio.',
       benefits: ['Diseño 3D previo', 'Herrajes premium', 'Aprovechamiento de espacios'],
       images: ['./img/muebles-de-melamina/1.jpg', './img/muebles-de-melamina/2.jpg', './img/muebles-de-melamina/3.jpg']
     },
     construction: {
       color: '#4A5568',
       light: '#EDF2F7',
-      title: 'ESTRUCTURAS <br><span>METÁLICAS</span>',
+      title: 'ESTRUCTURAS <span>METÁLICAS</span>',
       desc: 'Diseño, fabricación y montaje de estructuras de acero para techos, naves industriales y refuerzos.',
       cta: 'Cotizar Estructuras',
       hasDetails: true,
-      extDesc: 'Contamos con soldadores homologados y aplicamos recubrimientos anticorrosivos de grado industrial. Estructuras calculadas bajo normas RNE para soportar cargas y sismos.',
+      extDesc: 'Contamos con soldadores homologados y aplicamos recubrimientos anticorrosivos de grado industrial. Calculado bajo normas RNE.',
       benefits: ['Soldadura homologada', 'Recubrimientos industriales', 'Montaje seguro'],
       images: ['./img/estructuras-metalicas/1.jpg', './img/estructuras-metalicas/2.jpg', './img/estructuras-metalicas/3.jpg']
     },
     plumbing: {
       color: '#00A8E8',
       light: '#E6F7FF',
-      title: 'INSTALACIONES <br><span>SANITARIAS</span>',
+      title: 'INSTALACIONES <span>SANITARIAS</span>',
       desc: 'Redes de agua potable, desagüe y alcantarillado con pruebas de hermeticidad y calidad garantizada.',
       cta: 'Cotizar Sanitarias',
       hasDetails: true,
-      extDesc: 'Garantizamos la estanqueidad de las redes mediante pruebas de presión hidrostática. Utilizamos tuberías y conexiones certificadas para larga duración.',
+      extDesc: 'Garantizamos la estanqueidad mediante pruebas de presión hidrostática. Tuberías y conexiones certificadas.',
       benefits: ['Redes de agua y desagüe', 'Cisternas y bombas', 'Pruebas de hermeticidad'],
       images: ['./img/instalaciones-sanitarias/1.jpg', './img/instalaciones-sanitarias/2.jpg', './img/instalaciones-sanitarias/3.jpg']
     },
     local_fire_department: {
       color: '#DC143C',
       light: '#FAE6E8',
-      title: 'SISTEMAS CONTRA <br><span>INCENDIOS</span>',
+      title: 'SISTEMAS CONTRA <span>INCENDIOS</span>',
       desc: 'Instalación de rociadores, gabinetes y bombas contra incendio cumpliendo la normativa nacional.',
       cta: 'Cotizar Sistemas CI',
       hasDetails: true,
-      extDesc: 'Diseño e instalación bajo normativa NFPA y RNE. Asegura la aprobación de inspecciones municipales y protege vidas y propiedades efectivamente.',
+      extDesc: 'Diseño e instalación bajo normativa NFPA y RNE. Asegura la aprobación de inspecciones municipales.',
       benefits: ['Rociadores automáticos', 'Cuartos de bombas', 'Gabinetes y alarmas'],
       images: ['./img/sistemas-contra-incendios/1.jpg', './img/sistemas-contra-incendios/2.jpg', './img/sistemas-contra-incendios/3.jpg']
     },
     electrical_services: {
       color: '#2E8B57',
       light: '#E8F5EB',
-      title: 'POZOS A <br><span>TIERRA</span>',
+      title: 'POZOS A <span>TIERRA</span>',
       desc: 'Construcción, mantenimiento y certificación de pozos a tierra para proteger tus equipos y personal.',
       cta: 'Cotizar Pozos',
       hasDetails: true,
-      extDesc: 'Tratamiento químico especializado para alcanzar el ohmiaje requerido por Defensa Civil. Entregamos protocolo de pruebas firmado por ingeniero colegiado.',
+      extDesc: 'Tratamiento químico especializado para alcanzar el ohmiaje requerido. Entrega de protocolo firmado.',
       benefits: ['Certificados para Defensa Civil', 'Tratamiento químico', 'Mantenimiento anual'],
       images: ['./img/pozos-a-tierra/1.jpg', './img/pozos-a-tierra/2.jpg', './img/pozos-a-tierra/3.jpg']
     }
@@ -138,32 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================
   // 4. CAROUSEL LOGIC
   // =========================================
-
-  /**
-   * Updates the visual position of the carousel track based on currentSlide.
-   */
   const updateCarouselPosition = () => {
     carouselTrack.style.transform = `translateX(-${carouselState.currentSlide * 100}%)`;
   };
 
-  /**
-   * Disables/Enables arrows depending on start/end positions to improve UX.
-   */
   const updateControlsState = () => {
     const { currentSlide, totalSlides } = carouselState;
     prevBtn.disabled = currentSlide === 0;
     nextBtn.disabled = currentSlide === totalSlides - 1 || totalSlides <= 1;
 
-    // Hide controls completely if there's strictly 1 or fewer images
     const displayValue = totalSlides <= 1 ? 'none' : 'flex';
     prevBtn.style.display = displayValue;
     nextBtn.style.display = displayValue;
     dotsContainer.style.display = displayValue;
   };
 
-  /**
-   * Refreshes the active visual state of the pagination dots.
-   */
   const updateDots = () => {
     const dots = dotsContainer.querySelectorAll('.carousel-dot');
     dots.forEach((dot, index) => {
@@ -172,25 +153,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  /**
-   * Generates pagination dots based on the amount of slides present.
-   */
   const createDots = () => {
     dotsContainer.innerHTML = '';
     const { totalSlides } = carouselState;
-
     for (let i = 0; i < totalSlides; i++) {
       const dot = document.createElement('button');
       dot.type = 'button';
       dot.role = 'tab';
       dot.classList.add('carousel-dot');
-      dot.setAttribute('aria-label', `Ir a la imagen ${i + 1}`);
-
-      if (i === 0) {
-        dot.classList.add('active');
-        dot.setAttribute('aria-selected', 'true');
-      }
-
+      if (i === 0) { dot.classList.add('active'); dot.setAttribute('aria-selected', 'true'); }
       dot.addEventListener('click', () => {
         carouselState.currentSlide = i;
         updateCarouselPosition();
@@ -201,48 +172,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  /**
-   * Initializes or re-initializes the carousel state params.
-   */
   const updateCarouselParams = () => {
     carouselState.totalSlides = carouselTrack.querySelectorAll('.carousel-slide').length;
-    carouselState.currentSlide = 0; // Reset to start when changing service
+    carouselState.currentSlide = 0;
     updateCarouselPosition();
     updateControlsState();
     updateDots();
   };
 
-  // Navigation events for carousel arrows
   nextBtn.addEventListener('click', () => {
     if (carouselState.currentSlide < carouselState.totalSlides - 1) {
       carouselState.currentSlide++;
-      updateCarouselPosition();
-      updateControlsState();
-      updateDots();
+      updateCarouselPosition(); updateControlsState(); updateDots();
     }
   });
 
   prevBtn.addEventListener('click', () => {
     if (carouselState.currentSlide > 0) {
       carouselState.currentSlide--;
-      updateCarouselPosition();
-      updateControlsState();
-      updateDots();
+      updateCarouselPosition(); updateControlsState(); updateDots();
     }
   });
 
   // =========================================
-  // 5. APPLICATION LOGIC & NAVIGATION
+  // 5. APPLICATION LOGIC
   // =========================================
-
-  /**
-   * Closes the detailed view and resets the animation state.
-   */
   const closeFullDetails = () => {
     fullDetailsScreen.classList.remove('open');
     heroSection.classList.remove('slide-out');
-
-    // We delay the innerHTML reset to prevent content flashing while animating out
     setTimeout(() => {
       carouselTrack.innerHTML = '';
       dotsContainer.innerHTML = '';
@@ -251,148 +208,107 @@ document.addEventListener('DOMContentLoaded', () => {
 
   closeFullDetailsBtn.addEventListener('click', closeFullDetails);
 
-  /**
-   * Core function to update the Hero screen and prepare the Dynamic view mapping.
-   * Utilizes ES6 destructuring for cleaner data access.
-   */
   const updateScreen = (info) => {
-    // 1. Destructure necessary fields and prep state
-    const { color, light, title, desc, cta, hasDetails, extDesc, benefits, images } = info;
+    const { color, light, title, desc, cta, hasDetails, isDefault, extDesc, benefits, images } = info;
     closeFullDetails();
 
-    // 2. Theming setup
+    // Actualización de colores
     root.style.setProperty('--primary-color', color);
     root.style.setProperty('--bg-gradient', `linear-gradient(to right, ${light} 0%, #f3f5f7 100%)`);
-    ctaText.textContent = cta;
 
-    // 3. Build dynamic hero layout
-    const detailsBtnHtml = hasDetails
-      ? `<button type="button" id="btn-open-details" class="btn-details">Ver más detalles <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">arrow_forward</span></button>`
-      : '';
+    // El botón del navbar siempre debe ser color secundario (borde y texto)
+    if (navWhatsappBtn) {
+      navWhatsappBtn.style.borderColor = color;
+      navWhatsappBtn.style.color = color;
+    }
 
-    // Why we do this: Toggling 'animate-slide' class re-triggers the CSS fade-in animation.
-    // 'void heroContent.offsetWidth' forces a browser layout calculation (reflow), confirming the removal before re-adding.
+    // Inyectar contenido en Hero
+    let buttonsHtml = '';
+    if (isDefault) {
+      buttonsHtml = `
+        <div class="hero-action-container">
+          <a href="https://wa.me/TUNUMERO" target="_blank" class="btn-main">${cta}</a>
+        </div>
+      `;
+    } else {
+      buttonsHtml = `
+        <div class="hero-action-container">
+          <a href="https://wa.me/TUNUMERO" target="_blank" class="btn-main">${cta}</a>
+          ${hasDetails ? `<button type="button" id="btn-open-details" class="btn-ghost">Ver detalles</button>` : ''}
+        </div>
+      `;
+    }
+
     heroContent.classList.remove('animate-slide');
-    void heroContent.offsetWidth;
+    void heroContent.offsetWidth; // Trigger reflow
 
     heroContent.innerHTML = `
       <h1>${title}</h1>
       <p>${desc}</p>
-      ${detailsBtnHtml}
+      ${buttonsHtml}
     `;
 
     heroContent.classList.add('animate-slide');
 
-    // 4. Attach event listener if Details view is applicable
+    // Manejo de Detalles
     if (hasDetails) {
       const openBtn = document.getElementById('btn-open-details');
-      openBtn.addEventListener('click', () => {
+      if (openBtn) {
+        openBtn.addEventListener('click', () => {
+          const benefitsHtml = benefits
+            .map(b => `<li><span class="material-symbols-outlined">check_circle</span> ${b}</li>`)
+            .join('');
 
-        // Inject textual content
-        const benefitsHtml = benefits
-          .map(b => `<li><span class="material-symbols-outlined" aria-hidden="true">check_circle</span> ${b}</li>`)
-          .join('');
+          detailsTextCol.innerHTML = `
+            <h2 id="dialog-title">${title}</h2> 
+            <p class="ext-desc">${extDesc}</p>
+            <h3>Servicios incluidos:</h3>
+            <ul class="ext-benefits-list">${benefitsHtml}</ul>
+          `;
 
-        detailsTextCol.innerHTML = `
-          <h2 id="dialog-title">${title}</h2> 
-          <p class="ext-desc">${extDesc}</p>
-          <h3>Servicios incluidos:</h3>
-          <ul class="ext-benefits-list">
-            ${benefitsHtml}
-          </ul>
-        `;
-        fullDetailsScreen.setAttribute('aria-labelledby', 'dialog-title');
+          carouselTrack.innerHTML = '';
+          if (images && images.length > 0) {
+            images.forEach((imgUrl, idx) => {
+              const slide = document.createElement('div');
+              slide.classList.add('carousel-slide');
+              slide.innerHTML = `<img src="${imgUrl}" alt="Trabajo Realizado">`;
+              carouselTrack.appendChild(slide);
+            });
+          }
 
-        // Inject carousel media
-        carouselTrack.innerHTML = '';
-        if (images && images.length > 0) {
-          images.forEach((imgUrl, idx) => {
-            const slide = document.createElement('div');
-            slide.classList.add('carousel-slide');
-            slide.role = 'group';
-            slide.setAttribute('aria-roledescription', 'slide');
-            slide.setAttribute('aria-label', `Imagen ${idx + 1} de ${images.length}`);
-            slide.innerHTML = `<img src="${imgUrl}" alt="Ejemplo de trabajo de ${title.replace(/<[^>]*>?/gm, ' ')}">`;
-            carouselTrack.appendChild(slide);
-          });
-        } else {
-          // Fallback image handling if no images are provided
-          carouselTrack.innerHTML = `
-            <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="Imagen 1 de 1">
-              <img src="https://via.placeholder.com/800x600?text=Grupo+Asmad" alt="Grupo Asmad">
-            </div>`;
-        }
-
-        // Boot the Carousel visually
-        createDots();
-        updateCarouselParams();
-
-        // Reveal view
-        heroSection.classList.add('slide-out');
-        fullDetailsScreen.classList.add('open');
-      });
+          createDots();
+          updateCarouselParams();
+          heroSection.classList.add('slide-out');
+          fullDetailsScreen.classList.add('open');
+        });
+      }
     }
   };
 
-  /**
-   * Binds interaction logic to bottom service buttons.
-   */
+  // Eventos de Servicios
   services.forEach(service => {
-    // Accessibility: Support keyboard actions (Enter or Space) since role="button" is on div
-    service.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        service.click();
-      }
-    });
-
     service.addEventListener('click', () => {
-      const iconSpan = service.querySelector('.material-symbols-outlined');
-      const iconName = iconSpan.textContent.trim();
+      const iconName = service.querySelector('.material-symbols-outlined').textContent.trim();
 
       if (service.classList.contains('active')) {
-        // Toggle off if currently active
-        service.classList.remove('active');
-        service.setAttribute('aria-expanded', 'false');
-        updateScreen(serviceData.default);
-        bgIcon.classList.remove('show');
-      } else if (serviceData[iconName]) {
-        // Reset previously active service states
-        services.forEach(s => {
-          s.classList.remove('active');
-          s.removeAttribute('aria-expanded');
-        });
-
-        // Mark new service active
+        resetToDefault();
+      } else {
+        services.forEach(s => s.classList.remove('active'));
         service.classList.add('active');
-        service.setAttribute('aria-expanded', 'true');
-
         updateScreen(serviceData[iconName]);
-
-        // Update background visual flair
         bgIcon.textContent = iconName;
         bgIcon.classList.add('show');
       }
-      service.blur(); // Quita el foco del elemento para que la tecla MAYUS no le afecte
+      service.blur();
     });
-  });
-
-  // Global reset interaction via primary logo
-  logo.addEventListener('click', () => resetToDefault());
-  logo.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      resetToDefault();
-    }
   });
 
   const resetToDefault = () => {
-    services.forEach(s => {
-      s.classList.remove('active');
-      s.removeAttribute('aria-expanded');
-    });
+    services.forEach(s => s.classList.remove('active'));
     updateScreen(serviceData.default);
     bgIcon.classList.remove('show');
     closeFullDetails();
   };
+
+  logo.addEventListener('click', resetToDefault);
 });
