@@ -1,117 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grupo Asmad</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500&family=Material+Symbols+Outlined"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  
-  <header class="header">
-    <div class="container">
-      <div class="logo">GRUPO<span>ASMAD</span></div>
-      <nav class="nav">
-        <a href="#">Inicio</a>
-        <a href="#">Servicios</a>
-        <a href="#">Proyectos</a>
-        <a href="#">Contacto</a>
-      </nav>
-      <a href="#" class="btn">Cotizar</a>
-    </div>
-  </header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="container hero-content">
-      <div class="hero-text fade-up">
-        <h1 class="fade-up delay-1">SOLUCIONES TÉCNICAS CONFIABLES<br>PARA PROYECTOS DE CONSTRUCCIÓN EXIGENTES</h1>
-        <p class="fade-up delay-2">Trabajamos con constructoras, ingenieros y arquitectos que necesitan instalaciones seguras, cumplimiento técnico y responsabilidad en cada etapa del proyecto.</p>
-        <div class="hero-buttons fade-up delay-3">
-          <a href="#" class="btn">SOLICITAR COTIZACIÓN</a>
-          <a href="#" class="btn btn-outline">VER EXPERIENCIA</a>
-        </div>
-      </div>
-      <div class="hero-cards">
-        <div class="card">Cumplimiento técnico garantizado</div>
-        <div class="card">Experiencia en proyectos reales</div>
-        <div class="card">Trabajo responsable en obra</div>
+  <nav role="navigation" aria-label="Menú principal">
+    <div class="logo" id="logo" style="cursor: pointer;" tabindex="0" role="button" aria-label="Volver al inicio">GRUPO ASMAD</div>
+
+    <div class="links">
+      <a href="#">Nosotros</a>
+      <a href="#">Proyectos</a>
+      <a href="#">Contacto</a>
+    </div>
+
+    <div class="nav-cta">
+      <button type="button" aria-label="Solicitar cotización por WhatsApp">
+        <!-- WhatsApp SVG CORRECTO -->
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M20.52 3.48A11.8 11.8 0 0012.06 0C5.43 0 .06 5.37.06 12c0 2.12.55 4.2 1.6 6.04L0 24l6.13-1.6A11.93 11.93 0 0012.06 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.2-3.54-8.52zM12.06 21.8c-1.8 0-3.57-.48-5.1-1.38l-.36-.21-3.64.95.97-3.55-.23-.37A9.78 9.78 0 012.3 12c0-5.39 4.37-9.76 9.76-9.76 2.6 0 5.05 1.01 6.9 2.86A9.7 9.7 0 0121.82 12c0 5.39-4.37 9.8-9.76 9.8zm5.44-7.32c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.17c-.17.2-.34.22-.64.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.8-1.67-2.1-.17-.3-.02-.47.13-.62.13-.13.3-.34.45-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.13 3.25 5.17 4.55.72.3 1.28.48 1.72.62.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35z" />
+        </svg>
+        <span id="cta-text">Solicitar cotización</span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero" aria-label="Sección principal">
+    <!-- Icono de fondo -->
+    <div id="bg-icon" class="material-symbols-outlined" aria-hidden="true"></div>
+
+    <div class="left">
+      <div class="content" id="hero-content" aria-live="polite">
+        <h1>INGENIERÍA QUE <br><span>TRANSFORMA</span><br> TUS ESPACIOS</h1>
+        <p>Soluciones eléctricas, estructurales y de diseño con ejecución profesional. Seguridad, estética y precisión
+          en cada proyecto.</p>
       </div>
     </div>
+
+    <div class="right">
+      <img src="img/ingeniero-blanco.png" alt="Ingeniero" />
+    </div>
+
+    <div class="services-bar" role="group" aria-label="Servicios">
+      <div class="service" role="button" tabindex="0" aria-label="Servicio: Instalaciones eléctricas"><span class="material-symbols-outlined" aria-hidden="true">bolt</span><span class="text">Instalaciones
+          eléctricas</span></div>
+      <div class="service" role="button" tabindex="0" aria-label="Servicio: Muebles de melamina"><span class="material-symbols-outlined" aria-hidden="true">chair</span><span class="text">Muebles de
+          melamina</span></div>
+      <div class="service" role="button" tabindex="0" aria-label="Servicio: Estructuras metálicas"><span class="material-symbols-outlined" aria-hidden="true">construction</span><span class="text">Estructuras
+          metálicas</span></div>
+      <div class="service" role="button" tabindex="0" aria-label="Servicio: Instalaciones sanitarias"><span class="material-symbols-outlined" aria-hidden="true">plumbing</span><span class="text">Instalaciones
+          sanitarias</span></div>
+      <div class="service" role="button" tabindex="0" aria-label="Servicio: Sistemas contra incendio"><span class="material-symbols-outlined" aria-hidden="true">local_fire_department</span><span
+          class="text">Sistemas contra incendio</span></div>
+      <div class="service" role="button" tabindex="0" aria-label="Servicio: Pozos a tierra"><span class="material-symbols-outlined" aria-hidden="true">electrical_services</span><span class="text">Pozos a
+          tierra</span></div>
+    </div>
+
   </section>
 
-  <section class="benefits">
-    <div class="container">
-      <div class="section-title fade-up">
-        <h2>POR QUÉ TRABAJAR CON NOSOTROS</h2>
-        <p>Empresas constructoras, ingenieros y arquitectos confían en nuestro trabajo por la seguridad, responsabilidad y experiencia que ofrecemos en cada proyecto.</p>
+  <div id="full-details" class="full-details-screen" aria-modal="true" role="dialog" aria-hidden="true" aria-label="Detalles del servicio">
+    <div class="details-container-grid">
+
+      <div class="details-column-text">
+        <button type="button" id="close-full-details" class="btn-back" aria-label="Cerrar detalles">
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Volver
+        </button>
+        <div id="full-details-text" aria-live="polite">
+        </div>
       </div>
 
-      <div class="benefits-grid">
-        <div class="benefit-card fade-up delay-1">
-          <h3>Cumplimiento técnico</h3>
-          <p>Trabajamos respetando normas técnicas y estándares requeridos en proyectos de construcción.</p>
-        </div>
-        <div class="benefit-card fade-up delay-2">
-          <h3>Experiencia en obra</h3>
-          <p>Participamos en proyectos reales con constructoras, edificaciones y trabajos de alta exigencia.</p>
-        </div>
-        <div class="benefit-card fade-up delay-3">
-          <h3>Responsabilidad profesional</h3>
-          <p>Cumplimos tiempos, procesos y especificaciones necesarias en cada etapa del trabajo.</p>
-        </div>
-        <div class="benefit-card fade-up delay-1">
-          <h3>Personal calificado</h3>
-          <p>Técnicos con experiencia en instalaciones eléctricas, sanitarias y sistemas para construcción.</p>
-        </div>
-        <div class="benefit-card fade-up delay-2">
-          <h3>Trabajo seguro</h3>
-          <p>Priorizamos seguridad, orden y calidad en cada instalación realizada.</p>
-        </div>
-        <div class="benefit-card fade-up delay-3">
-          <h3>Compromiso con el proyecto</h3>
-          <p>Nos involucramos en cada obra como parte del equipo para lograr un resultado correcto.</p>
+      <div class="details-column-gallery">
+        <div class="carousel-container" aria-roledescription="carousel" aria-label="Galería de imágenes del proyecto">
+          <div id="carousel-track" class="carousel-track" aria-live="polite"></div>
+
+          <button type="button" class="carousel-btn prev" id="carousel-prev" aria-label="Imagen anterior"><span
+              class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
+          <button type="button" class="carousel-btn next" id="carousel-next" aria-label="Siguiente imagen"><span
+              class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+          <div id="carousel-dots" class="carousel-dots" role="tablist" aria-label="Navegación del carrusel"></div>
         </div>
       </div>
+
     </div>
-  </section>
+  </div>
 
-  <section class="services">
-    <div class="container">
-      <div class="section-title fade-up">
-        <h2>NUESTROS SERVICIOS</h2>
-        <p>Brindamos soluciones técnicas para proyectos de construcción, edificaciones, empresas y viviendas.</p>
-      </div>
-
-      <div class="services-grid">
-        <div class="service-card fade-up delay-1">
-          <h3>Instalaciones eléctricas</h3>
-          <p>Instalaciones para viviendas, edificios y obras cumpliendo normas técnicas.</p>
-        </div>
-        <div class="service-card fade-up delay-2">
-          <h3>Instalaciones sanitarias</h3>
-          <p>Sistemas de agua y desagüe para proyectos residenciales y construcción.</p>
-        </div>
-        <div class="service-card fade-up delay-3">
-          <h3>Sistemas contra incendios</h3>
-          <p>Instalación de redes y sistemas de seguridad según requerimientos técnicos.</p>
-        </div>
-        <div class="service-card fade-up delay-1">
-          <h3>Pozos a tierra</h3>
-          <p>Instalación y mantenimiento de sistemas de puesta a tierra certificados.</p>
-        </div>
-        <div class="service-card fade-up delay-2">
-          <h3>Estructuras metálicas</h3>
-          <p>Fabricación e instalación para obras, techos y proyectos industriales.</p>
-        </div>
-        <div class="service-card fade-up delay-3">
-          <h3>Muebles de melamina</h3>
-          <p>Diseño e instalación para viviendas, departamentos y oficinas.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <script src="js/main.js"></script>
 </body>
+
 </html>
