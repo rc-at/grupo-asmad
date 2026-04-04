@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgIcon = document.getElementById('bg-icon');
   const logo = document.getElementById('logo');
   const services = document.querySelectorAll('.service');
-  const navWhatsappBtn = document.querySelector('.btn-nav-whatsapp'); // Cache del botón navbar
 
   // Details Screen
   const fullDetailsScreen = document.getElementById('full-details');
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       light: '#f3f5f7',
       title: 'INGENIERÍA QUE <span>TRANSFORMA</span> TUS ESPACIOS',
       desc: 'Soluciones eléctricas, estructurales y de diseño con ejecución profesional. Seguridad, estética y precisión en cada proyecto.',
-      cta: 'Solicitar Asesoría Gratuita',
+      cta: 'Solicitar cotización',
       hasDetails: false,
       isDefault: true
     },
@@ -131,7 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. CAROUSEL LOGIC
   // =========================================
   const updateCarouselPosition = () => {
-    carouselTrack.style.transform = `translateX(-${carouselState.currentSlide * 100}%)`;
+    const slides = carouselTrack.querySelectorAll('.carousel-slide');
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === carouselState.currentSlide);
+    });
   };
 
   const updateControlsState = () => {
@@ -216,11 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
     root.style.setProperty('--primary-color', color);
     root.style.setProperty('--bg-gradient', `linear-gradient(to right, ${light} 0%, #f3f5f7 100%)`);
 
-    // El botón del navbar siempre debe ser color secundario (borde y texto)
-    if (navWhatsappBtn) {
-      navWhatsappBtn.style.borderColor = color;
-      navWhatsappBtn.style.color = color;
-    }
 
     // Inyectar contenido en Hero
     let buttonsHtml = '';
@@ -271,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             images.forEach((imgUrl, idx) => {
               const slide = document.createElement('div');
               slide.classList.add('carousel-slide');
+              if (idx === 0) slide.classList.add('active');
               slide.innerHTML = `<img src="${imgUrl}" alt="Trabajo Realizado">`;
               carouselTrack.appendChild(slide);
             });

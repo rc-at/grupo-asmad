@@ -4,7 +4,7 @@
 :root {
   --primary-color: #FF6B00;
   --bg-gradient: linear-gradient(135deg, #f3f5f7 0%, #f3f5f7 100%);
-  --text-main: #1A1D1F;
+  --text-main: #1a1110;
   --text-muted: #5B6572;
 }
 
@@ -38,8 +38,7 @@ html {
 /* =========================================
    3. TYPOGRAPHY
    ========================================= */
-h1,
-.logo {
+h1 {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
 }
@@ -77,14 +76,22 @@ nav {
   align-items: center;
   padding: 26px 60px;
   position: relative;
-  z-index: 100;
+  z-index: 300;
   animation: fadeUpLoad 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   will-change: transform, opacity;
 }
 
 .logo {
-  font-size: 26px;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  /* Espacio reservado para el logo */
+}
+
+.logo img {
+  height: 100%;
+  width: auto;
+  display: block;
 }
 
 .links {
@@ -101,38 +108,6 @@ nav {
 
 .links a:hover {
   color: var(--primary-color);
-}
-
-/* Navbar CTA (Pill Design) */
-.nav-cta button,
-.btn-nav-whatsapp {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  border: 2px solid var(--primary-color);
-  border-radius: 50px;
-  /* Pill */
-  background: white;
-  /* Contenedor blanco solicitado */
-  color: var(--primary-color);
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.btn-nav-whatsapp:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.nav-cta svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
 }
 
 /* Botón Hamburguesa oculto en PC */
@@ -367,14 +342,16 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  /* fallback */
+  height: 100dvh;
   background: var(--bg-gradient);
   z-index: 200;
   transform: translateX(100vw);
   transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   align-items: flex-start;
-  padding: 120px 60px 60px 60px;
+  padding: 120px 60px 100px 60px;
   will-change: transform;
   overflow-y: auto;
 }
@@ -384,22 +361,55 @@ nav {
 }
 
 .btn-back {
-  background: transparent;
-  border: none;
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 210;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   color: var(--text-muted);
   font-family: 'Inter', sans-serif;
   font-size: 16px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 30px;
-  transition: color 0.3s ease;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, opacity 0.4s ease;
+  /* Oculto cuando la pantalla de detalles está cerrada */
+  display: none;
+}
+
+/* Visible sólo cuando el panel full-details está abierto */
+.full-details-screen.open+.btn-back {
+  display: inline-flex;
+  pointer-events: auto;
+  animation: btnBackFadeUp 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) 1.2s both;
+}
+
+@keyframes btnBackFadeUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .btn-back:hover {
   color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
 }
 
 .details-container-grid {
@@ -467,23 +477,32 @@ nav {
 }
 
 .carousel-track {
-  display: flex;
+  position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s ease-in-out;
-  will-change: transform;
 }
 
 .carousel-slide {
-  min-width: 100%;
-  height: 100%;
-  flex-shrink: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .carousel-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
   display: block;
 }
 
@@ -610,7 +629,8 @@ nav {
   }
 
   .hero {
-    padding: 0 40px 80px; /* Eliminated top padding since nav is no longer absolute here */
+    padding: 0 40px 80px;
+    /* Eliminated top padding since nav is no longer absolute here */
   }
 
 
@@ -637,8 +657,16 @@ nav {
 
   nav {
     padding: 20px;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
     width: 100%;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   }
 
   .links {
@@ -651,47 +679,11 @@ nav {
     z-index: 120;
   }
 
-  .btn-nav-whatsapp {
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-  }
-
-  .nav-cta button,
-  .btn-nav-whatsapp {
-    border-radius: 100%;
-  }
-
-  .btn-nav-whatsapp svg,
-  .nav-cta svg {
-    width: 22px !important;
-    height: 22px !important;
-    min-width: 22px;
-    min-height: 22px;
-    flex-shrink: 0;
-    margin: 0 !important;
-    display: block !important;
-    fill: currentColor !important;
-  }
-
-  .btn-nav-whatsapp .btn-text {
-    display: none;
-  }
-
-  .nav-cta {
-    position: relative;
-    z-index: 120;
-    margin-left: auto;
-    margin-right: 20px;
-  }
-
   .logo {
     position: relative;
     z-index: 120;
+    height: 40px;
+    /* Un poco más pequeño en Tablet */
   }
 
   /* Full screen glassmorphism menu */
@@ -703,7 +695,7 @@ nav {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     z-index: 110;
@@ -721,7 +713,7 @@ nav {
 
   .hero {
     flex-direction: column;
-    padding: 100px 20px 100px;
+    padding: 140px 20px 100px;
     align-items: flex-start;
   }
 
@@ -772,6 +764,10 @@ nav {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
+  .full-details-screen {
+    padding: 140px 40px 60px 40px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -780,7 +776,8 @@ nav {
   }
 
   .logo {
-    font-size: 20px;
+    height: 34px;
+    /* Más pequeño en móviles */
   }
 
   .services-bar {
@@ -798,11 +795,11 @@ nav {
   }
 
   .hero {
-    padding: 80px 15px 90px;
+    padding: 120px 15px 90px;
   }
 
   .full-details-screen {
-    padding: 80px 15px 40px 15px;
+    padding: 120px 15px 40px 15px;
   }
 
   .carousel-btn {
@@ -813,7 +810,8 @@ nav {
 
 @media (max-width: 320px) {
   .logo {
-    font-size: 18px;
+    height: 30px;
+    /* Pantallas extra pequeñas */
   }
 
   h1 {
