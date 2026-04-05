@@ -4,12 +4,13 @@
 :root {
   --primary-color: #FF6B00;
   --bg-gradient: linear-gradient(135deg, #f3f5f7 0%, #f3f5f7 100%);
-  --text-main: #1a1110;
-  --text-muted: #5B6572;
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
-  --glass-blur: 16px;
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --text-main: #111111;
+  --text-muted: #374151;
+  --glass-bg: rgba(255, 255, 255, 0.18);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.25);
+  --glass-blur: 24px;
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  --nav-height: 88px;
 }
 
 /* =========================================
@@ -632,6 +633,10 @@ nav {
     padding: 26px 40px;
   }
 
+  :root {
+    --nav-height: 100px;
+  }
+
   .links {
     gap: 20px;
   }
@@ -675,6 +680,10 @@ nav {
     border-bottom: var(--glass-border);
     box-shadow: var(--glass-shadow);
     transition: background 0.3s ease;
+  }
+
+  :root {
+    --nav-height: 80px;
   }
 
   .links {
@@ -781,6 +790,10 @@ nav {
 @media (max-width: 480px) {
   nav {
     padding: 20px 15px;
+  }
+
+  :root {
+    --nav-height: 74px;
   }
 
   .logo {

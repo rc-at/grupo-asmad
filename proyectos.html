@@ -12,24 +12,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="css/style.css">
-
   <style>
     body,
     html {
       height: 100%;
       overflow: hidden;
+      background: var(--bg-gradient);
     }
 
-    /* Estilo para marcar página activa en Proyectos */
-    .links a.active {
-      color: var(--primary-color) !important;
+    body {
+      padding-top: var(--nav-height);
+      box-sizing: border-box;
     }
-
 
     /* Swipers */
     .main-swiper {
       width: 100%;
-      height: 100vh;
+      height: calc(100vh - var(--nav-height));
+      height: calc(100dvh - var(--nav-height));
+      position: relative;
     }
 
     .photo-swiper {
@@ -54,29 +55,41 @@
       background: linear-gradient(90deg, rgba(243, 245, 247, 0.9) 0%, rgba(243, 245, 247, 0.5) 45%, rgba(243, 245, 247, 0) 100%);
     }
 
-    /* Capa Segura */
-    .safe-area {
-      position: absolute;
-      top: 75px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 10;
-      padding: 40px 60px;
+    /* Contenedor de contenido encajado (igual que index.html) */
+    .content-container {
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      padding: 0 60px;
+      pointer-events: none;
       display: flex;
       flex-direction: column;
+    }
+
+    /* Capa Segura */
+    .safe-area {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      padding: 40px 0;
+      /* Padding lateral lo maneja .content-container */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       pointer-events: none;
     }
 
     /* Caja de Información Estilo Grupo Asmad */
     .info-box {
       pointer-events: auto;
-      margin-top: auto;
-      margin-bottom: auto;
+      margin-top: 0;
+      margin-bottom: 120px; /* Sobre los controles (105px) + gap de 15px */
       max-width: 480px;
       background: var(--glass-bg);
       padding: 40px;
-      border-radius: 20px;
+      border-radius: 20px 20px 8px 8px; /* Esquinas inferiores minimizadas */
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
@@ -88,15 +101,18 @@
       margin: 0 0 15px 0;
       font-size: clamp(32px, 5vw, 48px);
       color: var(--primary-color);
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Sutil para despegar del fondo */
       text-transform: uppercase;
       line-height: 1.1;
     }
 
     .info-box p {
-      font-size: 18px;
+      font-size: 17px; /* Un pelín más pequeño para mejor balance */
       color: var(--text-muted);
       margin-bottom: 25px;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-weight: 500; /* Medium para mejorar la lectura sobre cristal */
     }
 
     .info-box ul {
@@ -123,100 +139,76 @@
     }
 
     /* Controles Fijos (Proyectos) */
-    .fixed-controls {
+    .fixed-controls-wrapper {
       position: absolute;
-      bottom: 40px;
-      left: 60px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px; /* Suficiente para los controles */
       z-index: 100;
+      pointer-events: none;
       display: flex;
-      flex-direction: column;
-      gap: 15px;
+      align-items: flex-end;
+      padding-bottom: 40px;
+    }
+
+    .fixed-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      max-width: 480px;
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px 8px 20px 20px; /* Esquinas superiores minimizadas */
+      box-shadow: var(--glass-shadow);
+      overflow: hidden;
       pointer-events: auto;
     }
 
     .project-counter {
       font-family: 'Oswald', sans-serif;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--text-main);
-      padding-left: 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .nav-buttons {
       display: flex;
-      gap: 12px;
+      gap: 0;
     }
 
     .btn-nav {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: #fff;
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      width: 65px;
+      height: 65px;
+      background: transparent;
+      border: none;
+      border-left: 1px solid var(--glass-border);
       color: var(--text-main);
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .btn-nav:hover:not(.swiper-button-disabled) {
+      background: rgba(255, 255, 255, 0.3);
       color: var(--primary-color);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
     }
 
     .swiper-button-disabled {
       opacity: 0.4;
       cursor: not-allowed;
-    }
-
-    /* Miniaturas (Abajo Derecha) */
-    .bottom-dynamic {
-      position: absolute;
-      bottom: 40px;
-      right: 60px;
-      z-index: 10;
-      display: flex;
-      align-items: flex-end;
-      pointer-events: none;
-    }
-
-    .thumbnails {
-      pointer-events: auto;
-      display: flex;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.3);
-      padding: 10px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-    }
-
-    .thumb {
-      width: 80px;
-      height: 55px;
-      border-radius: 8px;
-      cursor: pointer;
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border: 3px solid transparent;
-      opacity: 0.6;
-      transition: 0.3s;
-    }
-
-    .thumb:hover {
-      opacity: 0.9;
-    }
-
-    .thumb.active {
-      opacity: 1;
-      border-color: var(--primary-color);
-      transform: scale(1.1);
-      box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
     }
 
     /* Móvil */
@@ -233,37 +225,24 @@
     }
 
     @media (max-width: 768px) {
+      .content-container {
+        padding: 0 20px;
+      }
 
       .safe-area {
-        padding: 20px;
+        padding: 40px 0 20px 0;
       }
 
       .info-box {
         padding: 30px;
       }
 
-      .thumbnails {
-        display: none;
-      }
-
-      .mobile-hint {
-        display: block;
-        margin-bottom: 20px;
-      }
-
       .fixed-controls {
-        bottom: 20px;
-        left: 20px;
         flex-direction: row;
-        align-items: center;
+        align-items: stretch;
         justify-content: space-between;
-        right: 20px;
-      }
-
-      .bottom-dynamic {
-        bottom: 90px;
-        left: 20px;
-        right: 20px;
+        width: 100%;
+        max-width: 100%;
       }
     }
   </style>
@@ -277,8 +256,8 @@
     </div>
 
     <div class="links">
+      <a href="index.html">INICIO</a>
       <a href="nosotros.html">NOSOTROS</a>
-      <a href="proyectos.html" class="active">PROYECTOS</a>
       <a href="contacto.html">CONTACTO</a>
     </div>
 
@@ -287,12 +266,17 @@
     </button>
   </nav>
 
-  <div class="fixed-controls">
-    <div class="project-counter" id="global-counter">01 <span style="color: var(--text-muted); font-size:16px;">/
-        00</span></div>
-    <div class="nav-buttons">
-      <button class="btn-nav proj-up"><span class="material-symbols-outlined">expand_less</span></button>
-      <button class="btn-nav proj-down"><span class="material-symbols-outlined">expand_more</span></button>
+  <div class="fixed-controls-wrapper">
+    <div class="content-container">
+      <div class="fixed-controls">
+        <div class="project-counter" id="global-counter">PROYECTO 01 / 00</div>
+        <div class="nav-buttons">
+          <button class="btn-nav proj-up" aria-label="Proyecto anterior"><span
+              class="material-symbols-outlined">expand_less</span></button>
+          <button class="btn-nav proj-down" aria-label="Siguiente proyecto"><span
+              class="material-symbols-outlined">expand_more</span></button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -312,14 +296,12 @@
     const counterEl = document.getElementById('global-counter');
     const totalProj = proyectos.length;
 
-    counterEl.innerHTML = `01 <span style="color: var(--text-muted); font-size:16px;">/ 0${totalProj}</span>`;
+    counterEl.innerHTML = `PROYECTO 01 / 0${totalProj}`;
 
     proyectos.forEach((proj) => {
       const images = Array.from({ length: 5 }, (_, i) => `https://picsum.photos/seed/${proj.id * 10 + i}/1920/1080`);
 
       let photoSlides = images.map(img => `<div class="swiper-slide photo-slide" style="background-image: url('${img}')"></div>`).join('');
-      let thumbsHtml = images.map((img, i) => `<div class="thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`).join('');
-
       const slide = document.createElement('div');
       slide.className = 'swiper-slide';
       slide.innerHTML = `
@@ -327,20 +309,15 @@
                     <div class="swiper-wrapper">${photoSlides}</div>
                 </div>
                 
+              <div class="content-container">
                 <div class="safe-area">
                     <div class="info-box">
                         <h1>${proj.title}</h1>
                         <p>${proj.desc}</p>
                         <ul>${proj.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
                     </div>
-                    <div class="bottom-dynamic">
-                        <div class="mobile-hint">
-                            <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 5px;">swipe</span> 
-                            Desliza para ver más fotos
-                        </div>
-                        <div class="thumbnails">${thumbsHtml}</div>
-                    </div>
                 </div>
+              </div>
             `;
       container.appendChild(slide);
     });
@@ -349,27 +326,7 @@
       direction: 'horizontal',
       loop: true,
       nested: true,
-      grabCursor: true,
-      on: {
-        slideChange: function () {
-          const slideEl = this.el.closest('.swiper-slide');
-          const thumbs = slideEl.querySelectorAll('.thumb');
-          thumbs.forEach(t => t.classList.remove('active'));
-
-          if (thumbs[this.realIndex]) {
-            thumbs[this.realIndex].classList.add('active');
-          }
-        }
-      }
-    });
-
-    document.querySelectorAll('.thumb').forEach((thumb) => {
-      thumb.addEventListener('click', function () {
-        const index = parseInt(this.getAttribute('data-index'));
-        const slideParent = this.closest('.swiper-slide');
-        const swiperInstance = slideParent.querySelector('.photo-swiper').swiper;
-        swiperInstance.slideToLoop(index);
-      });
+      grabCursor: true
     });
 
     const mainSwiper = new Swiper('.main-swiper', {
@@ -383,7 +340,7 @@
       on: {
         slideChange: function () {
           let current = this.activeIndex + 1;
-          counterEl.innerHTML = `0${current} <span style="color: var(--text-muted); font-size:16px;">/ 0${totalProj}</span>`;
+          counterEl.innerHTML = `PROYECTO 0${current} / 0${totalProj}`;
         }
       }
     });

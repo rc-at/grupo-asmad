@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. CAROUSEL LOGIC
   // =========================================
   const updateCarouselPosition = () => {
+    if (!carouselTrack) return;
     const slides = carouselTrack.querySelectorAll('.carousel-slide');
     slides.forEach((slide, i) => {
       slide.classList.toggle('active', i === carouselState.currentSlide);
@@ -137,6 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const updateControlsState = () => {
+    if (!prevBtn || !nextBtn || !dotsContainer) return;
+
     const { currentSlide, totalSlides } = carouselState;
     prevBtn.disabled = currentSlide === 0;
     nextBtn.disabled = currentSlide === totalSlides - 1 || totalSlides <= 1;
@@ -148,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const updateDots = () => {
+    if (!dotsContainer) return;
     const dots = dotsContainer.querySelectorAll('.carousel-dot');
     dots.forEach((dot, index) => {
       dot.classList.toggle('active', index === carouselState.currentSlide);
@@ -175,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const updateCarouselParams = () => {
+    if (!carouselTrack) return;
     carouselState.totalSlides = carouselTrack.querySelectorAll('.carousel-slide').length;
     carouselState.currentSlide = 0;
     updateCarouselPosition();
@@ -182,33 +187,40 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDots();
   };
 
-  nextBtn.addEventListener('click', () => {
-    if (carouselState.currentSlide < carouselState.totalSlides - 1) {
-      carouselState.currentSlide++;
-      updateCarouselPosition(); updateControlsState(); updateDots();
-    }
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (carouselState.currentSlide < carouselState.totalSlides - 1) {
+        carouselState.currentSlide++;
+        updateCarouselPosition(); updateControlsState(); updateDots();
+      }
+    });
+  }
 
-  prevBtn.addEventListener('click', () => {
-    if (carouselState.currentSlide > 0) {
-      carouselState.currentSlide--;
-      updateCarouselPosition(); updateControlsState(); updateDots();
-    }
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (carouselState.currentSlide > 0) {
+        carouselState.currentSlide--;
+        updateCarouselPosition(); updateControlsState(); updateDots();
+      }
+    });
+  }
 
   // =========================================
   // 5. APPLICATION LOGIC
   // =========================================
   const closeFullDetails = () => {
-    fullDetailsScreen.classList.remove('open');
-    heroSection.classList.remove('slide-out');
+    if (fullDetailsScreen) fullDetailsScreen.classList.remove('open');
+    if (heroSection) heroSection.classList.remove('slide-out');
+
     setTimeout(() => {
-      carouselTrack.innerHTML = '';
-      dotsContainer.innerHTML = '';
+      if (carouselTrack) carouselTrack.innerHTML = '';
+      if (dotsContainer) dotsContainer.innerHTML = '';
     }, 600);
   };
 
-  closeFullDetailsBtn.addEventListener('click', closeFullDetails);
+  if (closeFullDetailsBtn) {
+    closeFullDetailsBtn.addEventListener('click', closeFullDetails);
+  }
 
   const updateScreen = (info) => {
     const { color, light, title, desc, cta, hasDetails, isDefault, extDesc, benefits, images } = info;
@@ -283,19 +295,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Eventos de Servicios
+  // Eventos de Servicios (Protegidos)
   services.forEach(service => {
     service.addEventListener('click', () => {
-      const iconName = service.querySelector('.material-symbols-outlined').textContent.trim();
+      const iconElement = service.querySelector('.material-symbols-outlined');
+
+      // Si no hay icono, no podemos obtener el nombre para serviceData
+      if (!iconElement) return;
+
+      const iconName = iconElement.textContent.trim();
 
       if (service.classList.contains('active')) {
         resetToDefault();
       } else {
         services.forEach(s => s.classList.remove('active'));
         service.classList.add('active');
-        updateScreen(serviceData[iconName]);
-        bgIcon.textContent = iconName;
-        bgIcon.classList.add('show');
+
+        // Verifica que el dato existe en tu objeto serviceData
+        if (serviceData[iconName]) {
+          updateScreen(serviceData[iconName]);
+          if (bgIcon) {
+            bgIcon.textContent = iconName;
+            bgIcon.classList.add('show');
+          }
+        }
       }
       service.blur();
     });
@@ -308,5 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeFullDetails();
   };
 
-  logo.addEventListener('click', resetToDefault);
+  if (logo) {
+    logo.addEventListener('click', resetToDefault);
+  }
 });
