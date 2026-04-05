@@ -6,6 +6,10 @@
   --bg-gradient: linear-gradient(135deg, #f3f5f7 0%, #f3f5f7 100%);
   --text-main: #1a1110;
   --text-muted: #5B6572;
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.6);
+  --glass-blur: 16px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 /* =========================================
@@ -74,9 +78,17 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 26px 60px;
-  position: relative;
+  padding: 20px 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 300;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+  box-shadow: none;
   animation: fadeUpLoad 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   will-change: transform, opacity;
 }
@@ -266,11 +278,11 @@ nav {
   justify-content: center;
   gap: 15px;
   border-radius: 50px;
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
   z-index: 30;
 }
 
@@ -371,11 +383,11 @@ nav {
   gap: 10px;
   padding: 12px 28px;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
   cursor: pointer;
   color: var(--text-muted);
   font-family: 'Inter', sans-serif;
@@ -657,16 +669,12 @@ nav {
 
   nav {
     padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 300;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: background 0.3s ease;
   }
 
   .links {
@@ -695,9 +703,9 @@ nav {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     z-index: 110;
     justify-content: center;
     align-items: center;

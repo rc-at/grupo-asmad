@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Grupo Asmad</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <nav role="navigation" aria-label="Menú principal">
+    <div class="logo" id="logo" style="cursor: pointer;" tabindex="0" role="button" aria-label="Volver al inicio">
+      <img src="img/logo-h.svg" alt="Grupo Asmad" />
+    </div>
+
+    <div class="links">
+      <a href="nosotros.html">NOSOTROS</a>
+      <a href="proyectos.html">PROYECTOS</a>
+      <a href="contacto.html" class="active">CONTACTO</a>
+    </div>
+
+    <button id="mobile-menu-btn" class="hamburger-btn" aria-label="Menú">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </nav>
+
+  <style>
+    .links a.active {
+      color: var(--primary-color) !important;
+    }
+
+    .page-content {
+      padding: 140px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-content h1 {
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .page-content {
+        padding: 120px 20px;
+      }
+    }
+  </style>
+
+  <main class="page-content">
+    <h1>PONTE EN <span>CONTACTO</span></h1>
+    <p>¿Tienes un proyecto en mente? Estamos listos para ayudarte. Contáctanos por cualquiera de nuestros canales oficiales.</p>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

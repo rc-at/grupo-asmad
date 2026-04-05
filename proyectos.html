@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trabajos Realizados | Grupo Asmad</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body,
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Estilo para marcar página activa en Proyectos */
+    .links a.active {
+      color: var(--primary-color) !important;
+    }
+
+
+    /* Swipers */
+    .main-swiper {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .photo-swiper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .photo-slide {
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Overlay adaptado a tema claro para que el texto resalte */
+    .photo-slide::after {
+      display: none;
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(243, 245, 247, 0.9) 0%, rgba(243, 245, 247, 0.5) 45%, rgba(243, 245, 247, 0) 100%);
+    }
+
+    /* Capa Segura */
+    .safe-area {
+      position: absolute;
+      top: 75px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      padding: 40px 60px;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+    }
+
+    /* Caja de Información Estilo Grupo Asmad */
+    .info-box {
+      pointer-events: auto;
+      margin-top: auto;
+      margin-bottom: auto;
+      max-width: 480px;
+      background: var(--glass-bg);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .info-box h1 {
+      font-family: 'Oswald', sans-serif;
+      margin: 0 0 15px 0;
+      font-size: clamp(32px, 5vw, 48px);
+      color: var(--primary-color);
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .info-box p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .info-box ul {
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .info-box li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .info-box li::before {
+      content: 'check_circle';
+      font-family: 'Material Symbols Outlined';
+      color: var(--primary-color);
+      font-size: 20px;
+    }
+
+    /* Controles Fijos (Proyectos) */
+    .fixed-controls {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      pointer-events: auto;
+    }
+
+    .project-counter {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-main);
+      padding-left: 5px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      color: var(--text-main);
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-nav:hover:not(.swiper-button-disabled) {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .swiper-button-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Miniaturas (Abajo Derecha) */
+    .bottom-dynamic {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .thumbnails {
+      pointer-events: auto;
+      display: flex;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 10px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .thumb {
+      width: 80px;
+      height: 55px;
+      border-radius: 8px;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 3px solid transparent;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .thumb:hover {
+      opacity: 0.9;
+    }
+
+    .thumb.active {
+      opacity: 1;
+      border-color: var(--primary-color);
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+    }
+
+    /* Móvil */
+    .mobile-hint {
+      display: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary-color);
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      box-shadow: var(--glass-shadow);
+      pointer-events: auto;
+    }
+
+    @media (max-width: 768px) {
+
+      .safe-area {
+        padding: 20px;
+      }
+
+      .info-box {
+        padding: 30px;
+      }
+
+      .thumbnails {
+        display: none;
+      }
+
+      .mobile-hint {
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      .fixed-controls {
+        bottom: 20px;
+        left: 20px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        right: 20px;
+      }
+
+      .bottom-dynamic {
+        bottom: 90px;
+        left: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav role="navigation" aria-label="Menú principal">
+    <div class="logo" id="logo" style="cursor: pointer;" tabindex="0" role="button" aria-label="Volver al inicio">
+      <img src="img/logo-h.svg" alt="Grupo Asmad" />
+    </div>
+
+    <div class="links">
+      <a href="nosotros.html">NOSOTROS</a>
+      <a href="proyectos.html" class="active">PROYECTOS</a>
+      <a href="contacto.html">CONTACTO</a>
+    </div>
+
+    <button id="mobile-menu-btn" class="hamburger-btn" aria-label="Menú">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </nav>
+
+  <div class="fixed-controls">
+    <div class="project-counter" id="global-counter">01 <span style="color: var(--text-muted); font-size:16px;">/
+        00</span></div>
+    <div class="nav-buttons">
+      <button class="btn-nav proj-up"><span class="material-symbols-outlined">expand_less</span></button>
+      <button class="btn-nav proj-down"><span class="material-symbols-outlined">expand_more</span></button>
+    </div>
+  </div>
+
+  <div class="swiper main-swiper">
+    <div class="swiper-wrapper" id="portfolio-container"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const proyectos = [
+      { id: 1, title: 'Edificio Corporativo Z', desc: 'Soluciones eléctricas, estructurales y de diseño con ejecución profesional para torres de oficinas.', bullets: ['25 pisos automatizados', 'Cableado Cat 6A', 'Certificación LEED Gold'] },
+      { id: 2, title: 'Colegio San Juan', desc: 'Modernización de infraestructura tecnológica y mobiliario educativo en melamina.', bullets: ['30 aulas equipadas', 'Estructuras metálicas', 'Videovigilancia IP'] },
+      { id: 3, title: 'Clínica San Pablo', desc: 'Sistemas críticos, instalaciones sanitarias y sistemas contra incendios.', bullets: ['Pozos a tierra certificados', 'Sistema contra incendio', 'Red sanitaria integral'] }
+    ];
+
+    const container = document.getElementById('portfolio-container');
+    const counterEl = document.getElementById('global-counter');
+    const totalProj = proyectos.length;
+
+    counterEl.innerHTML = `01 <span style="color: var(--text-muted); font-size:16px;">/ 0${totalProj}</span>`;
+
+    proyectos.forEach((proj) => {
+      const images = Array.from({ length: 5 }, (_, i) => `https://picsum.photos/seed/${proj.id * 10 + i}/1920/1080`);
+
+      let photoSlides = images.map(img => `<div class="swiper-slide photo-slide" style="background-image: url('${img}')"></div>`).join('');
+      let thumbsHtml = images.map((img, i) => `<div class="thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`).join('');
+
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `
+                <div class="swiper photo-swiper">
+                    <div class="swiper-wrapper">${photoSlides}</div>
+                </div>
+                
+                <div class="safe-area">
+                    <div class="info-box">
+                        <h1>${proj.title}</h1>
+                        <p>${proj.desc}</p>
+                        <ul>${proj.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+                    </div>
+                    <div class="bottom-dynamic">
+                        <div class="mobile-hint">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 5px;">swipe</span> 
+                            Desliza para ver más fotos
+                        </div>
+                        <div class="thumbnails">${thumbsHtml}</div>
+                    </div>
+                </div>
+            `;
+      container.appendChild(slide);
+    });
+
+    const photoSwipers = new Swiper('.photo-swiper', {
+      direction: 'horizontal',
+      loop: true,
+      nested: true,
+      grabCursor: true,
+      on: {
+        slideChange: function () {
+          const slideEl = this.el.closest('.swiper-slide');
+          const thumbs = slideEl.querySelectorAll('.thumb');
+          thumbs.forEach(t => t.classList.remove('active'));
+
+          if (thumbs[this.realIndex]) {
+            thumbs[this.realIndex].classList.add('active');
+          }
+        }
+      }
+    });
+
+    document.querySelectorAll('.thumb').forEach((thumb) => {
+      thumb.addEventListener('click', function () {
+        const index = parseInt(this.getAttribute('data-index'));
+        const slideParent = this.closest('.swiper-slide');
+        const swiperInstance = slideParent.querySelector('.photo-swiper').swiper;
+        swiperInstance.slideToLoop(index);
+      });
+    });
+
+    const mainSwiper = new Swiper('.main-swiper', {
+      direction: 'vertical',
+      loop: false,
+      keyboard: true,
+      navigation: {
+        nextEl: '.proj-down',
+        prevEl: '.proj-up',
+      },
+      on: {
+        slideChange: function () {
+          let current = this.activeIndex + 1;
+          counterEl.innerHTML = `0${current} <span style="color: var(--text-muted); font-size:16px;">/ 0${totalProj}</span>`;
+        }
+      }
+    });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
