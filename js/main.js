@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
       benefits: ['Instalación de tableros', 'Cableado estructurado', 'Mantenimiento preventivo'],
       images: ['./img/instalaciones-electricas/1.jpg', './img/instalaciones-electricas/2.jpg', './img/instalaciones-electricas/3.jpg']
     },
-    chair: {
+    tile_medium: {
       color: '#A0522D',
       light: '#F5EBE6',
       title: 'MUEBLES DE <span>MELAMINA</span>',

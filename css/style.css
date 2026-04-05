@@ -11,6 +11,7 @@
   --glass-blur: 24px;
   --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
   --nav-height: 88px;
+  --services-bar-height: 140px;
 }
 
 /* =========================================
@@ -139,10 +140,10 @@ nav {
 
 /* --- HERO SECTION (CENTRE VERTICAL) --- */
 .hero {
-  flex-grow: 1;
+  min-height: 100vh;
   display: flex;
-  padding: 0 60px 100px 60px;
-  /* Padding inferior para equilibrar la barra */
+  padding: var(--nav-height) 60px var(--services-bar-height) 60px;
+  /* Padding superior e inferior para evitar solapamiento y centrar */
   position: relative;
   align-items: center;
   /* Centrado vertical del contenido */
@@ -181,7 +182,8 @@ nav {
 }
 
 .right img {
-  max-height: 95vh;
+  max-height: calc(100vh - var(--nav-height) - var(--services-bar-height) + 20px);
+  /* Un poco más para que repose sobre la barra o pase ligeramente detrás sin tapar el logo */
   max-width: 100%;
   display: block;
   object-fit: contain;
@@ -646,8 +648,7 @@ nav {
   }
 
   .hero {
-    padding: 0 40px 80px;
-    /* Eliminated top padding since nav is no longer absolute here */
+    padding: var(--nav-height) 40px var(--services-bar-height) 40px;
   }
 
 
@@ -684,6 +685,7 @@ nav {
 
   :root {
     --nav-height: 80px;
+    --services-bar-height: 100px;
   }
 
   .links {
@@ -730,8 +732,11 @@ nav {
 
   .hero {
     flex-direction: column;
-    padding: 140px 20px 100px;
-    align-items: flex-start;
+    padding: var(--nav-height) 20px var(--services-bar-height) 20px;
+    align-items: center;
+    justify-content: center;
+    /* Centrar en móvil también */
+    text-align: center;
   }
 
   .left {
@@ -743,7 +748,7 @@ nav {
 
   .hero-action-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
   }
 
